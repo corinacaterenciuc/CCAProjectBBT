@@ -20,4 +20,8 @@
         <Nume>Corina</Nume>
         <Grupa>932</Grupa>
     </student>
+    <student ID="10">
+        <Nume>TestStudent</Nume>
+        <Grupa>932</Grupa>
+    </student>
 </Entitati>

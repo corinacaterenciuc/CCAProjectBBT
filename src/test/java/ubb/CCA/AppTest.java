@@ -1,7 +1,9 @@
 package ubb.CCA;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
+import org.junit.After;
 import org.junit.Test;
 import ubb.CCA.domain.Nota;
 import ubb.CCA.domain.Student;
@@ -15,14 +17,25 @@ import ubb.CCA.validation.StudentValidator;
 import ubb.CCA.validation.TemaValidator;
 import ubb.CCA.validation.Validator;
 
+import java.io.File;
+
 /**
- * Unit test for simple App.
+ * EC for [group] variable
+ * variable < 100                    This should not work
+ * variable == 100                   This should work
+ * variable > 100 && variable < 999  This should work
+ * variable === 999                  This should work
+ * variable > 999                    This should not work
  */
+
 public class AppTest 
 {
-    /**
-     * Rigorous Test :-)
-     */
+    @After
+    public void cleanUp() {
+        File fp = new File("studenti-test.xml");
+        fp.delete();
+    }
+
     @Test
     public void tc_SuccessfulUserAdd()
     {
@@ -30,19 +43,27 @@ public class AppTest
         Validator<Tema> temaValidator = new TemaValidator();
         Validator<Nota> notaValidator = new NotaValidator();
 
-        StudentXMLRepository studentRepo = new StudentXMLRepository(studentValidator, "studenti.xml");
+        StudentXMLRepository studentRepo = new StudentXMLRepository(studentValidator, "studenti-test.xml");
         TemaXMLRepository temaRepo = new TemaXMLRepository(temaValidator, "teme.xml");
         NotaXMLRepository notaRepo = new NotaXMLRepository(notaValidator, "note.xml");
 
         Service service = new Service(studentRepo, temaRepo, notaRepo);
 
-        assertTrue( service.saveStudent("10", "TestStudent", 932) == 1 );
-        //assertTrue( true );
+        assertEquals(1, service.saveStudent("10", "TestStudent", 932));
     }
-    @Test
-    public void test2()
-    {
 
-        assertTrue( true );
+    @Test
+    public void tc_UnsuccesfulAddBadGroup() {
+        Validator<Student> studentValidator = new StudentValidator();
+        Validator<Tema> temaValidator = new TemaValidator();
+        Validator<Nota> notaValidator = new NotaValidator();
+
+        StudentXMLRepository studentRepo = new StudentXMLRepository(studentValidator, "studenti-test.xml");
+        TemaXMLRepository temaRepo = new TemaXMLRepository(temaValidator, "teme.xml");
+        NotaXMLRepository notaRepo = new NotaXMLRepository(notaValidator, "note.xml");
+
+        Service service = new Service(studentRepo, temaRepo, notaRepo);
+
+        assertEquals(0, service.saveStudent("10", "TestStudent", 4));
     }
 }
