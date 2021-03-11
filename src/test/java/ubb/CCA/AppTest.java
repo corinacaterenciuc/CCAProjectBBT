@@ -4,6 +4,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 import ubb.CCA.domain.Nota;
 import ubb.CCA.domain.Student;
@@ -18,6 +19,7 @@ import ubb.CCA.validation.TemaValidator;
 import ubb.CCA.validation.Validator;
 
 import java.io.File;
+import java.io.IOException;
 
 /**
  * EC for [group] variable
@@ -32,8 +34,9 @@ public class AppTest
 {
     @After
     public void cleanUp() {
-        File fp = new File("studenti-test.xml");
-        fp.delete();
+        Validator<Student> studentValidator = new StudentValidator();
+        StudentXMLRepository studentRepo = new StudentXMLRepository(studentValidator, "test-studenti.xml");
+        studentRepo.delete("10");
     }
 
     @Test
@@ -43,7 +46,7 @@ public class AppTest
         Validator<Tema> temaValidator = new TemaValidator();
         Validator<Nota> notaValidator = new NotaValidator();
 
-        StudentXMLRepository studentRepo = new StudentXMLRepository(studentValidator, "studenti-test.xml");
+        StudentXMLRepository studentRepo = new StudentXMLRepository(studentValidator, "test-studenti.xml");
         TemaXMLRepository temaRepo = new TemaXMLRepository(temaValidator, "teme.xml");
         NotaXMLRepository notaRepo = new NotaXMLRepository(notaValidator, "note.xml");
 
@@ -58,7 +61,7 @@ public class AppTest
         Validator<Tema> temaValidator = new TemaValidator();
         Validator<Nota> notaValidator = new NotaValidator();
 
-        StudentXMLRepository studentRepo = new StudentXMLRepository(studentValidator, "studenti-test.xml");
+        StudentXMLRepository studentRepo = new StudentXMLRepository(studentValidator, "test-studenti.xml");
         TemaXMLRepository temaRepo = new TemaXMLRepository(temaValidator, "teme.xml");
         NotaXMLRepository notaRepo = new NotaXMLRepository(notaValidator, "note.xml");
 
