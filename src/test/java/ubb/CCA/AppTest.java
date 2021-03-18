@@ -20,6 +20,7 @@ import ubb.CCA.validation.Validator;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Arrays;
 
 /**
  * EC for [group] variable
@@ -39,7 +40,13 @@ public class AppTest
     final TemaXMLRepository temaRepo = new TemaXMLRepository(temaValidator, "teme.xml");
     final NotaXMLRepository notaRepo = new NotaXMLRepository(notaValidator, "note.xml");
     final Service service = new Service(studentRepo, temaRepo, notaRepo);
-    final String reallyLongString = new String(new char[Integer.MAX_VALUE / 10]);
+    String reallyLongString;
+
+    public AppTest() {
+        char[] fill = new char [Integer.MAX_VALUE / 10];
+        Arrays.fill(fill, 'a');
+        reallyLongString = new String(fill);
+    }
 
     @Test
     public void tc_01()
@@ -81,5 +88,41 @@ public class AppTest
 
         assertEquals(0, service.saveStudent("15", "BVA5", 99));
         studentRepo.delete("15");
+    }
+
+    @Test
+    public void tc_09() {
+        assertEquals(1, service.saveStudent("21", "N", 245));
+        // Don't clean up - tc_10 depends on tc_09
+    }
+
+    @Test
+    public void tc_10() {
+        // Check if same id fails
+        assertEquals(0, service.saveStudent("21", "N", 245));
+        studentRepo.delete("21");
+    }
+
+    @Test
+    public void tc_11() {
+        assertEquals(0, service.saveStudent("12", "Eu Eulescu", null));
+    }
+
+    @Test
+    public void tc_12() {
+        assertEquals(1, service.saveStudent("67", "BVA1", 765));
+        studentRepo.delete("67");
+    }
+
+    @Test
+    public void tc_13() {
+        assertEquals(1, service.saveStudent(reallyLongString.substring(0, reallyLongString.length()-1), "BVA1", 765));
+        studentRepo.delete(reallyLongString.substring(0, reallyLongString.length()-1));
+    }
+
+    @Test
+    public void tc_14() {
+        assertEquals(1, service.saveStudent("22", reallyLongString, 245));
+        studentRepo.delete("22");
     }
 }

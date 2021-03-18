@@ -5,9 +5,9 @@ import java.util.Objects;
 public class Student implements HasID<String> {
     private String idStudent;
     private String nume;
-    private int grupa;
+    private Integer grupa;
 
-    public Student(String idStudent, String nume, int grupa) {
+    public Student(String idStudent, String nume, Integer grupa) {
         this.idStudent = idStudent;
         this.nume = nume;
         this.grupa = grupa;
@@ -27,7 +27,7 @@ public class Student implements HasID<String> {
         this.nume = nume;
     }
 
-    public int getGrupa() {
+    public Integer getGrupa() {
         return grupa;
     }
 
