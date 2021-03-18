@@ -69,17 +69,43 @@ public class AppTest
 
     @Test
     public void tc_07() {
-        Validator<Student> studentValidator = new StudentValidator();
-        Validator<Tema> temaValidator = new TemaValidator();
-        Validator<Nota> notaValidator = new NotaValidator();
-
-        StudentXMLRepository studentRepo = new StudentXMLRepository(studentValidator, "test-studenti.xml");
-        TemaXMLRepository temaRepo = new TemaXMLRepository(temaValidator, "teme.xml");
-        NotaXMLRepository notaRepo = new NotaXMLRepository(notaValidator, "note.xml");
-
-        Service service = new Service(studentRepo, temaRepo, notaRepo);
-
         assertEquals(0, service.saveStudent("15", "BVA5", 99));
         studentRepo.delete("15");
+    }
+
+    @Test
+    public void tc_15(){
+        assertEquals(1, service.saveStudent("24", "Jo", 245));
+        studentRepo.delete("24");
+    }
+
+    @Test
+    public void tc_16(){
+        assertEquals(1, service.saveStudent("25", reallyLongString, 245));
+        studentRepo.delete("25");
+    }
+
+    @Test
+    public void tc_17(){
+        assertEquals(1, service.saveStudent("31", "BVA3", 100));
+        studentRepo.delete("31");
+    }
+
+    @Test
+    public void tc_18(){
+        assertEquals(1, service.saveStudent("32", "BVA4", 999));
+        studentRepo.delete("32");
+    }
+
+    @Test
+    public void tc_19(){
+        assertEquals(1, service.saveStudent("34", "BVA6", 101));
+        studentRepo.delete("34");
+    }
+
+    @Test
+    public void tc_20(){
+        assertEquals(1, service.saveStudent("35", "BVA7", 998));
+        studentRepo.delete("35");
     }
 }
