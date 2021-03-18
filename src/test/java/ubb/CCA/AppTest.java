@@ -32,15 +32,10 @@ import java.io.IOException;
 
 public class AppTest 
 {
-    @After
-    public void cleanUp() {
-        Validator<Student> studentValidator = new StudentValidator();
-        StudentXMLRepository studentRepo = new StudentXMLRepository(studentValidator, "test-studenti.xml");
-        studentRepo.delete("10");
-    }
+
 
     @Test
-    public void tc_SuccessfulUserAdd()
+    public void tc_01()
     {
         Validator<Student> studentValidator = new StudentValidator();
         Validator<Tema> temaValidator = new TemaValidator();
@@ -52,11 +47,15 @@ public class AppTest
 
         Service service = new Service(studentRepo, temaRepo, notaRepo);
 
-        assertEquals(1, service.saveStudent("10", "TestStudent", 932));
+        assertEquals(1, service.saveStudent("5", "Eu Eulescu", 234));
+
+        studentRepo.delete("5");
+
+
     }
 
     @Test
-    public void tc_UnsuccesfulAddBadGroup() {
+    public void tc_07() {
         Validator<Student> studentValidator = new StudentValidator();
         Validator<Tema> temaValidator = new TemaValidator();
         Validator<Nota> notaValidator = new NotaValidator();
@@ -67,6 +66,7 @@ public class AppTest
 
         Service service = new Service(studentRepo, temaRepo, notaRepo);
 
-        assertEquals(0, service.saveStudent("10", "TestStudent", 4));
+        assertEquals(0, service.saveStudent("15", "BVA5", 99));
+        studentRepo.delete("15");
     }
 }
