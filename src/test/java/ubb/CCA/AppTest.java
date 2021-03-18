@@ -154,4 +154,40 @@ public class AppTest
         assertEquals(1, service.saveStudent("22", reallyLongString, 245));
         studentRepo.delete("22");
     }
+
+    @Test
+    public void tc_15(){
+        assertEquals(1, service.saveStudent("24", "Jo", 245));
+        studentRepo.delete("24");
+    }
+
+    @Test
+    public void tc_16(){
+        assertEquals(1, service.saveStudent("25", reallyLongString, 245));
+        studentRepo.delete("25");
+    }
+
+    @Test
+    public void tc_17(){
+        assertEquals(1, service.saveStudent("31", "BVA3", 100));
+        studentRepo.delete("31");
+    }
+
+    @Test
+    public void tc_18(){
+        assertEquals(1, service.saveStudent("32", "BVA4", 999));
+        studentRepo.delete("32");
+    }
+
+    @Test
+    public void tc_19(){
+        assertEquals(1, service.saveStudent("34", "BVA6", 101));
+        studentRepo.delete("34");
+    }
+
+    @Test
+    public void tc_20(){
+        assertEquals(1, service.saveStudent("35", "BVA7", 998));
+        studentRepo.delete("35");
+    }
 }
