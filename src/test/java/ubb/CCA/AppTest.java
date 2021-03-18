@@ -41,45 +41,74 @@ public class AppTest
     final Service service = new Service(studentRepo, temaRepo, notaRepo);
     final String reallyLongString = new String(new char[Integer.MAX_VALUE / 10]);
 
-    @Test
-    public void tc_01()
-    {
-        assertEquals(1, service.saveStudent("10", "TestStudent", 932));
-        studentRepo.delete("10");
-    }
-
 //    @Test
-//    public void tc_UnsuccesfulAddBadGroup() {
-//        assertEquals(0, service.saveStudent("10", "TestStudent", 4));
-//        studentRepo.delete("10");
-//        Validator<Student> studentValidator = new StudentValidator();
-//        Validator<Tema> temaValidator = new TemaValidator();
-//        Validator<Nota> notaValidator = new NotaValidator();
+//    public void all_tests()
+//    {
+//        tc_01();
+//        tc_02();
+//        tc_03();
+//        //tc_04();
+//        tc_05();
+//        //tc_06();
+//        tc_07();
+//        tc_08();
+//        tc_09();
+//        tc_10();
+//        tc_11();
+//        tc_12();
+//        tc_13();
+//        tc_14();
+//        tc_15();
+//        tc_16();
+//        tc_17();
+//        tc_18();
+//        tc_19();
+//        tc_20();
 //
-//        StudentXMLRepository studentRepo = new StudentXMLRepository(studentValidator, "test-studenti.xml");
-//        TemaXMLRepository temaRepo = new TemaXMLRepository(temaValidator, "teme.xml");
-//        NotaXMLRepository notaRepo = new NotaXMLRepository(notaValidator, "note.xml");
-//
-//        Service service = new Service(studentRepo, temaRepo, notaRepo);
-//
-//        assertEquals(1, service.saveStudent("5", "Eu Eulescu", 234));
-//
-//        studentRepo.delete("5");
 //    }
 
     @Test
+    public void tc_01()
+    {
+        assertEquals(1, service.saveStudent("10", "Eu Eulescu", 234));
+        studentRepo.delete("10");
+    }
+
+    @Test
+    public void tc_02()
+    {
+        assertEquals(0, service.saveStudent("", "Eu Eulescu", 234));
+        //studentRepo.delete("");
+    }
+
+    @Test
+    public void tc_03()
+    {
+        assertEquals(1, service.saveStudent(reallyLongString, "BVA1", 765));
+        studentRepo.delete(reallyLongString);
+    }
+
+
+    @Test
+    public void tc_05()
+    {
+        assertEquals(0, service.saveStudent("6", "", 234));
+        //studentRepo.delete("6");
+    }
+
+
+
+    @Test
     public void tc_07() {
-        Validator<Student> studentValidator = new StudentValidator();
-        Validator<Tema> temaValidator = new TemaValidator();
-        Validator<Nota> notaValidator = new NotaValidator();
-
-        StudentXMLRepository studentRepo = new StudentXMLRepository(studentValidator, "test-studenti.xml");
-        TemaXMLRepository temaRepo = new TemaXMLRepository(temaValidator, "teme.xml");
-        NotaXMLRepository notaRepo = new NotaXMLRepository(notaValidator, "note.xml");
-
-        Service service = new Service(studentRepo, temaRepo, notaRepo);
 
         assertEquals(0, service.saveStudent("15", "BVA5", 99));
-        studentRepo.delete("15");
+        //studentRepo.delete("15");
+    }
+
+    @Test
+    public void tc_08()
+    {
+        assertEquals(0, service.saveStudent("36", "BVA8", 1000));
+        //studentRepo.delete("36");
     }
 }
