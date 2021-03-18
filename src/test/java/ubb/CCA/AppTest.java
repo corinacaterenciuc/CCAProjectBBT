@@ -32,41 +32,32 @@ import java.io.IOException;
 
 public class AppTest 
 {
+    final Validator<Student> studentValidator = new StudentValidator();
+    final Validator<Tema> temaValidator = new TemaValidator();
+    final Validator<Nota> notaValidator = new NotaValidator();
+    final StudentXMLRepository studentRepo = new StudentXMLRepository(studentValidator, "test-studenti.xml");
+    final TemaXMLRepository temaRepo = new TemaXMLRepository(temaValidator, "teme.xml");
+    final NotaXMLRepository notaRepo = new NotaXMLRepository(notaValidator, "note.xml");
+    final Service service = new Service(studentRepo, temaRepo, notaRepo);
+
     @After
     public void cleanUp() {
         Validator<Student> studentValidator = new StudentValidator();
         StudentXMLRepository studentRepo = new StudentXMLRepository(studentValidator, "test-studenti.xml");
-        studentRepo.delete("10");
     }
 
     @Test
     public void tc_SuccessfulUserAdd()
     {
-        Validator<Student> studentValidator = new StudentValidator();
-        Validator<Tema> temaValidator = new TemaValidator();
-        Validator<Nota> notaValidator = new NotaValidator();
-
-        StudentXMLRepository studentRepo = new StudentXMLRepository(studentValidator, "test-studenti.xml");
-        TemaXMLRepository temaRepo = new TemaXMLRepository(temaValidator, "teme.xml");
-        NotaXMLRepository notaRepo = new NotaXMLRepository(notaValidator, "note.xml");
-
-        Service service = new Service(studentRepo, temaRepo, notaRepo);
-
         assertEquals(1, service.saveStudent("10", "TestStudent", 932));
+        studentRepo.delete("10");
     }
 
     @Test
     public void tc_UnsuccesfulAddBadGroup() {
-        Validator<Student> studentValidator = new StudentValidator();
-        Validator<Tema> temaValidator = new TemaValidator();
-        Validator<Nota> notaValidator = new NotaValidator();
-
-        StudentXMLRepository studentRepo = new StudentXMLRepository(studentValidator, "test-studenti.xml");
-        TemaXMLRepository temaRepo = new TemaXMLRepository(temaValidator, "teme.xml");
-        NotaXMLRepository notaRepo = new NotaXMLRepository(notaValidator, "note.xml");
-
-        Service service = new Service(studentRepo, temaRepo, notaRepo);
-
         assertEquals(0, service.saveStudent("10", "TestStudent", 4));
+        studentRepo.delete("10");
     }
+
+
 }
