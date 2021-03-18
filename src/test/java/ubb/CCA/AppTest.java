@@ -39,6 +39,7 @@ public class AppTest
     final TemaXMLRepository temaRepo = new TemaXMLRepository(temaValidator, "teme.xml");
     final NotaXMLRepository notaRepo = new NotaXMLRepository(notaValidator, "note.xml");
     final Service service = new Service(studentRepo, temaRepo, notaRepo);
+    final String reallyLongString = new String(new char[Integer.MAX_VALUE]);
 
     @Test
     public void tc_01()
