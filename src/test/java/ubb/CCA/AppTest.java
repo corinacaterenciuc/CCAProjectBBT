@@ -40,24 +40,45 @@ public class AppTest
     final NotaXMLRepository notaRepo = new NotaXMLRepository(notaValidator, "note.xml");
     final Service service = new Service(studentRepo, temaRepo, notaRepo);
 
-    @After
-    public void cleanUp() {
-        Validator<Student> studentValidator = new StudentValidator();
-        StudentXMLRepository studentRepo = new StudentXMLRepository(studentValidator, "test-studenti.xml");
-    }
-
     @Test
-    public void tc_SuccessfulUserAdd()
+    public void tc_01()
     {
         assertEquals(1, service.saveStudent("10", "TestStudent", 932));
         studentRepo.delete("10");
     }
 
+//    @Test
+//    public void tc_UnsuccesfulAddBadGroup() {
+//        assertEquals(0, service.saveStudent("10", "TestStudent", 4));
+//        studentRepo.delete("10");
+//        Validator<Student> studentValidator = new StudentValidator();
+//        Validator<Tema> temaValidator = new TemaValidator();
+//        Validator<Nota> notaValidator = new NotaValidator();
+//
+//        StudentXMLRepository studentRepo = new StudentXMLRepository(studentValidator, "test-studenti.xml");
+//        TemaXMLRepository temaRepo = new TemaXMLRepository(temaValidator, "teme.xml");
+//        NotaXMLRepository notaRepo = new NotaXMLRepository(notaValidator, "note.xml");
+//
+//        Service service = new Service(studentRepo, temaRepo, notaRepo);
+//
+//        assertEquals(1, service.saveStudent("5", "Eu Eulescu", 234));
+//
+//        studentRepo.delete("5");
+//    }
+
     @Test
-    public void tc_UnsuccesfulAddBadGroup() {
-        assertEquals(0, service.saveStudent("10", "TestStudent", 4));
-        studentRepo.delete("10");
+    public void tc_07() {
+        Validator<Student> studentValidator = new StudentValidator();
+        Validator<Tema> temaValidator = new TemaValidator();
+        Validator<Nota> notaValidator = new NotaValidator();
+
+        StudentXMLRepository studentRepo = new StudentXMLRepository(studentValidator, "test-studenti.xml");
+        TemaXMLRepository temaRepo = new TemaXMLRepository(temaValidator, "teme.xml");
+        NotaXMLRepository notaRepo = new NotaXMLRepository(notaValidator, "note.xml");
+
+        Service service = new Service(studentRepo, temaRepo, notaRepo);
+
+        assertEquals(0, service.saveStudent("15", "BVA5", 99));
+        studentRepo.delete("15");
     }
-
-
 }
