@@ -29,7 +29,7 @@ public class AppTest
     String reallyLongString;
 
     public AppTest() {
-        char[] fill = new char [Integer.MAX_VALUE / 10];
+        char[] fill = new char [Integer.MAX_VALUE / 1000];
         Arrays.fill(fill, 'a');
         reallyLongString = new String(fill);
     }
