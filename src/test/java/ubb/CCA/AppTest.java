@@ -23,7 +23,7 @@ public class AppTest
     final Validator<Tema> temaValidator = new TemaValidator();
     final Validator<Nota> notaValidator = new NotaValidator();
     final StudentXMLRepository studentRepo = new StudentXMLRepository(studentValidator, "test-studenti.xml");
-    final TemaXMLRepository temaRepo = new TemaXMLRepository(temaValidator, "teme.xml");
+    final TemaXMLRepository temaRepo = new TemaXMLRepository(temaValidator, "test-teme.xml");
     final NotaXMLRepository notaRepo = new NotaXMLRepository(notaValidator, "note.xml");
     final Service service = new Service(studentRepo, temaRepo, notaRepo);
     String reallyLongString;
@@ -32,6 +32,20 @@ public class AppTest
         char[] fill = new char [Integer.MAX_VALUE / 1000];
         Arrays.fill(fill, 'a');
         reallyLongString = new String(fill);
+    }
+
+
+    @Test
+    public void tc_01_wbt()
+    {
+        assertEquals(1, service.saveTema("3", "the easiest assignment", 4, 2));
+        temaRepo.delete("3");
+    }
+
+    @Test
+    public void tc_02_wbt()
+    {
+        assertEquals(0, service.saveTema("4", "hardest",3 , 5));
     }
 
     @Test
