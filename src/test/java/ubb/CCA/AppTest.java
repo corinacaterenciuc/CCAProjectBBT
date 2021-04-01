@@ -1,6 +1,7 @@
 package ubb.CCA;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 import ubb.CCA.domain.Nota;
@@ -15,6 +16,7 @@ import ubb.CCA.validation.StudentValidator;
 import ubb.CCA.validation.TemaValidator;
 import ubb.CCA.validation.Validator;
 
+import java.io.File;
 import java.util.Arrays;
 
 public class AppTest 
@@ -36,16 +38,62 @@ public class AppTest
 
 
     @Test
+    public void test_all_wbt()
+    {
+        tc_01_wbt();
+        tc_02_wbt();
+        tc_03_wbt();
+        tc_04_wbt();
+        tc_05_wbt();
+        tc_06_wbt();
+    }
+
+    @Test
     public void tc_01_wbt()
     {
-        assertEquals(1, service.saveTema("3", "the easiest assignment", 4, 2));
-        temaRepo.delete("3");
+        assertEquals(1, service.saveTema("102", "the easiest assignment", 4, 2));
+        temaRepo.delete("102");
     }
 
     @Test
     public void tc_02_wbt()
     {
         assertEquals(0, service.saveTema("4", "hardest",3 , 5));
+    }
+
+    @Test
+    public void tc_03_wbt()
+    {
+        assertEquals(0, service.saveTema("5", "assign1",12 , -1));
+    }
+
+    @Test
+    public void tc_04_wbt()
+    {
+        assertEquals(0, service.saveTema("6", "assign2",20 , 4));
+    }
+
+    @Test
+    public void tc_05_wbt()
+    {
+        assertEquals(0, service.saveTema("", "assign3",6 , 5));
+    }
+
+    @Test
+    public void tc_06_wbt()
+    {
+        assertEquals(0, service.saveTema("7", "",6 , 5));
+    }
+
+    @Test
+    public void tc_23_wbt()
+    {
+        /*int size1 = temaRepo.findAll().
+        service.saveTema("3", "the easiest assignment", 4, 2);
+        File file2 = new File("teme.xml");
+        long size2 = file2.length();
+        assertTrue(size1<size2);
+        service.deleteTema("3");*/
     }
 
     @Test
