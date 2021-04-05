@@ -89,7 +89,7 @@ public class AppTest
     }
 
     @Test
-    public void all_intergrationTest_inClass()
+    public void all_integrationTest_inClass()
     {
         test_saveStudent01();
         test_saveTema01();
