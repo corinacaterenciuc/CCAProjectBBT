@@ -3,8 +3,11 @@ package ubb.CCA;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 import ubb.CCA.domain.Nota;
+import ubb.CCA.domain.Pair;
 import ubb.CCA.domain.Student;
 import ubb.CCA.domain.Tema;
 import ubb.CCA.repository.NotaXMLRepository;
@@ -34,6 +37,64 @@ public class AppTest
         char[] fill = new char [Integer.MAX_VALUE / 1000];
         Arrays.fill(fill, 'a');
         reallyLongString = new String(fill);
+    }
+
+    @Test
+    public void test_saveStudent01()
+    {
+        assertEquals(1, service.saveStudent("extra_test", "Eu Eulescu", 234));
+        studentRepo.delete("extra_test");
+    }
+
+    @Test
+    public void test_saveTema01()
+    {
+        assertEquals(1, service.saveTema("extra_test", "the easiest assignment", 4, 2));
+        temaRepo.delete("extra_test");
+
+    }
+
+    @Before
+    public void init_test()
+    {
+        service.saveStudent("student_nota", "Eu Eulescu", 932);
+        service.saveTema("tema_nota", "the easiest assignment", 8, 2);
+    }
+
+    @After
+    public void exit_test()
+    {
+        studentRepo.delete("student_nota");
+        temaRepo.delete("tema_nota");
+
+    }
+
+    @Test
+    public void test_saveNota01()
+    {
+        assertEquals(1, service.saveNota("student_nota", "tema_nota", 9, 7, "good tests"));
+        notaRepo.delete(new Pair("student_nota", "tema_nota"));
+    }
+
+
+    @Test
+    public void test_integrationBigBang01()
+    {
+        service.saveStudent("grade_test_student", "Eu Eulescu", 234);
+        service.saveTema("grade_test_tema", "test assigment", 10, 5);
+        assertEquals(1, service.saveNota("grade_test_student", "grade_test_tema", 9, 10, "not perfect, but ok."));
+        studentRepo.delete("grade_test_student");
+        temaRepo.delete("grade_test_tema");
+        notaRepo.delete(new Pair("grade_test_student", "grade_test_tema"));
+    }
+
+    @Test
+    public void all_intergrationTest_inClass()
+    {
+        test_saveStudent01();
+        test_saveTema01();
+        test_saveNota01();
+        test_integrationBigBang01();
     }
 
 
