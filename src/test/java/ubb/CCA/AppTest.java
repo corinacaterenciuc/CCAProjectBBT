@@ -40,14 +40,50 @@ public class AppTest
     }
 
     @Test
-    public void test_saveStudent01()
+    public void test_saveStudent_Increment()
+    {
+        assertEquals(1, service.saveStudent("extra_increment", "Eu Eulescu", 234));
+        studentRepo.delete("extra_increment");
+    }
+
+    @Test
+    public void test_saveTema_Increment()
+    {
+        assertEquals(1, service.saveStudent("extra_increment_assigment", "Eu Eulescu", 234));
+        studentRepo.delete("extra_increment_assigment");
+        assertEquals(1, service.saveTema("extra_increment", "the easiest assignment", 4, 2));
+        temaRepo.delete("extra_increment");
+
+    }
+
+    @Test
+    public void test_saveNota_Increment()
+    {
+        service.saveStudent("grade_test_student_increment", "Eu Eulescu", 234);
+        service.saveTema("grade_test_tema_increment", "test assigment", 10, 5);
+        assertEquals(1, service.saveNota("grade_test_student_increment", "grade_test_tema_increment", 9, 10, "not perfect, but ok."));
+        studentRepo.delete("grade_test_student_increment");
+        temaRepo.delete("grade_test_tema_increment");
+        notaRepo.delete(new Pair("grade_test_student_increment", "grade_test_tema_increment"));
+    }
+
+    @Test
+    public void test_all_integrationIncrement()
+    {
+        test_saveStudent_Increment();
+        test_saveTema_Increment();
+        test_saveNota_Increment();
+    }
+
+    @Test
+    public void test_saveStudent_BigBang()
     {
         assertEquals(1, service.saveStudent("extra_test", "Eu Eulescu", 234));
         studentRepo.delete("extra_test");
     }
 
     @Test
-    public void test_saveTema01()
+    public void test_saveTema_BigBang()
     {
         assertEquals(1, service.saveTema("extra_test", "the easiest assignment", 4, 2));
         temaRepo.delete("extra_test");
@@ -69,8 +105,10 @@ public class AppTest
 
     }
 
+
+
     @Test
-    public void test_saveNota01()
+    public void test_saveNota_BigBang()
     {
         assertEquals(1, service.saveNota("student_nota", "tema_nota", 9, 7, "good tests"));
         notaRepo.delete(new Pair("student_nota", "tema_nota"));
@@ -91,9 +129,9 @@ public class AppTest
     @Test
     public void all_integrationTest_inClass()
     {
-        test_saveStudent01();
-        test_saveTema01();
-        test_saveNota01();
+        test_saveStudent_BigBang();
+        test_saveTema_BigBang();
+        test_saveNota_BigBang();
         test_integrationBigBang01();
     }
 
